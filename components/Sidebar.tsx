@@ -16,6 +16,25 @@ import {
   MdFavorite,
 } from "react-icons/md";
 import Image from "next/image";
+import Link from "next/link";
+
+const navMenu = [
+  {
+    name: "Home",
+    icon: MdHome,
+    route: "/",
+  },
+  {
+    name: "Search",
+    icon: MdSearch,
+    route: "/search",
+  },
+  {
+    name: "Your Library",
+    icon: MdLibraryMusic,
+    route: "/library",
+  },
+];
 
 const Sidebar = () => {
   return (
@@ -29,6 +48,26 @@ const Sidebar = () => {
       <Box paddingY="20px">
         <Box width="120px" marginBottom="20px" paddingX="20px">
           <Image src="/logo.png" objectFit="contain" width={32} height={32} />
+        </Box>
+        <Box marginBottom="20px">
+          <List spacing={2}>
+            {navMenu.map((menu) => (
+              <ListItem paddingX="20px" fontSize="16px" key={menu.name}>
+                <LinkBox>
+                  <Link href={menu.route} passHref>
+                    <LinkOverlay>
+                      <ListIcon
+                        as={menu.icon}
+                        color="white"
+                        marginRight="20px"
+                      />
+                      {menu.name}
+                    </LinkOverlay>
+                  </Link>
+                </LinkBox>
+              </ListItem>
+            ))}
+          </List>
         </Box>
       </Box>
     </Box>
