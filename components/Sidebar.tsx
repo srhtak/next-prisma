@@ -4,7 +4,6 @@ import {
   ListIcon,
   ListItem,
   Divider,
-  Center,
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/layout";
@@ -85,7 +84,7 @@ const Sidebar = () => {
           </List>
         </Box>
         <Divider color="gray.800" />
-        <Box marginTop="20px">
+        <Box marginTop="20px" marginBottom="20px">
           <List spacing={2}>
             {music.map((menu) => (
               <ListItem paddingX="20px" fontSize="16px" key={menu.name}>
@@ -112,7 +111,7 @@ const Sidebar = () => {
               display: "none",
             },
           }}
-          height="60%"
+          height="55%"
           overflowY="auto"
           paddingY="20px"
         >
@@ -120,7 +119,7 @@ const Sidebar = () => {
             {playlists.map((playlist) => (
               <ListItem paddingX="20px" key={playlist}>
                 <LinkBox>
-                  <Link href="/">
+                  <Link href="/" passHref>
                     <LinkOverlay>{playlist}</LinkOverlay>
                   </Link>
                 </LinkBox>
