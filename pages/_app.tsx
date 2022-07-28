@@ -1,11 +1,12 @@
-import React from "react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "reset-css";
+import type { AppProps } from "next/app";
+import PlayerLayout from "../components/PlayerLayout";
 
 const theme = extendTheme({
   colors: {
     gray: {
-      100: "#F5f5f5",
+      100: "#F5F5F5",
       200: "#EEEEEE",
       300: "#E0E0E0",
       400: "#BDBDBD",
@@ -30,12 +31,14 @@ const theme = extendTheme({
   },
 });
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <PlayerLayout>
+        <Component {...pageProps} />
+      </PlayerLayout>
     </ChakraProvider>
   );
-}
+};
 
 export default MyApp;
