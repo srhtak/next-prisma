@@ -1,4 +1,5 @@
 import Head from "next/head";
+import GradientLayout from "components/GradientLayout";
 
 const Home = () => {
   return (
@@ -7,7 +8,9 @@ const Home = () => {
         <title>Spotify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      Home
+      <GradientLayout color="red">
+        <div>Home Page</div>
+      </GradientLayout>
     </div>
   );
 };

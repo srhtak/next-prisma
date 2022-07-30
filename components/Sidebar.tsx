@@ -7,6 +7,7 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/layout";
+import { Spinner, Center } from "@chakra-ui/react";
 import {
   MdHome,
   MdSearch,
@@ -52,7 +53,7 @@ const music = [
 // const playlists = new Array(30).fill(1).map((_, i) => `Playlist ${i + 1}`);
 
 const Sidebar = () => {
-  const { playlists } = usePlaylist();
+  const { playlists, isLoading } = usePlaylist();
   return (
     <Box
       width="100%"
@@ -118,15 +119,27 @@ const Sidebar = () => {
           paddingY="20px"
         >
           <List spacing={2}>
-            {playlists.map((playlist) => (
-              <ListItem paddingX="20px" key={playlist.id}>
-                <LinkBox>
-                  <Link href="/" passHref>
-                    <LinkOverlay>{playlist.name}</LinkOverlay>
-                  </Link>
-                </LinkBox>
-              </ListItem>
-            ))}
+            {isLoading ? (
+              <Center>
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="green.500"
+                  size="md"
+                />
+              </Center>
+            ) : (
+              playlists.map((playlist) => (
+                <ListItem paddingX="20px" key={playlist.id}>
+                  <LinkBox>
+                    <Link href="/" passHref>
+                      <LinkOverlay>{playlist.name}</LinkOverlay>
+                    </Link>
+                  </LinkBox>
+                </ListItem>
+              ))
+            )}
           </List>
         </Box>
       </Box>
