@@ -1,8 +1,10 @@
 import Head from "next/head";
 import GradientLayout from "components/GradientLayout";
 import prisma from "lib/prisma";
+import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/react";
 
-const Home = ({ artist }) => {
+const Home = ({ artists }) => {
   return (
     <div>
       <Head>
@@ -17,7 +19,37 @@ const Home = ({ artist }) => {
         description="15 public playlist"
         color="green"
       >
-        <div>Home Page</div>
+        <Box overflow="hidden" color="white" paddingX="40px">
+          <Box marginBottom="40px">
+            <Text fontSize="2xl" fontWeight="bold">
+              Top artist this month
+            </Text>
+            <Text fontSize="md" color="gray.600">
+              Only visible to you
+            </Text>
+          </Box>
+          <Flex>
+            {artists.map((artist) => (
+              <Box paddingX="10px" width="20%">
+                <Box
+                  bg="gray.900"
+                  borderRadius="4px"
+                  padding="15px"
+                  width="100%"
+                >
+                  <Image
+                    src="http://placekitten.com/300/300"
+                    borderRadius="100%"
+                  />
+                  <Box>
+                    <Text fontSize="lg">{artist.name}</Text>
+                    <Text fontSize="x-small">Artist</Text>
+                  </Box>
+                </Box>
+              </Box>
+            ))}
+          </Flex>
+        </Box>
       </GradientLayout>
     </div>
   );
