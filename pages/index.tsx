@@ -1,7 +1,8 @@
 import Head from "next/head";
 import GradientLayout from "components/GradientLayout";
+import prisma from "lib/prisma";
 
-const Home = () => {
+const Home = ({ artist }) => {
   return (
     <div>
       <Head>
@@ -20,6 +21,14 @@ const Home = () => {
       </GradientLayout>
     </div>
   );
+};
+
+export const getServerSideProps = async () => {
+  const artists = await prisma.artist.findMany({});
+
+  return {
+    props: { artists },
+  };
 };
 
 export default Home;
