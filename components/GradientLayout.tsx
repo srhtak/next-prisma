@@ -17,10 +17,14 @@ const gradientLayout = ({
       bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,0.95) 75%)`}
     >
       <Flex bg={`${color}.600`} padding="40px" align="end">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi tempore
-        distinctio mollitia rem voluptatibus esse ea consequuntur ad unde
-        ducimus. Consequuntur delectus non minima quidem aliquid ducimus
-        voluptatum quo cupiditate.
+        <Box padding="20px">
+          <Image
+            boxSize="160px"
+            boxShadow="2xl"
+            src={image}
+            borderRadius={roundImage ? "100%" : "3px"}
+          />
+        </Box>
       </Flex>
     </Box>
   );

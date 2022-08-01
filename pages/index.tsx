@@ -8,7 +8,7 @@ const Home = () => {
         <title>Spotify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <GradientLayout color="red">
+      <GradientLayout color="green">
         <div>Home Page</div>
       </GradientLayout>
     </div>
