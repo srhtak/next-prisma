@@ -1,17 +1,18 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import { useStoreState } from "easy-peasy";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 import Player from "./player";
 
 const PlayerBar = () => {
-  const songs = useStoreState((state: any) => state.activeSongs);
-  const activeSong = useStoreState((state: any) => state.activeSong);
+  const songs = useSelector((state: RootState) => state.song.songs);
+  const activeSong = useSelector((state: RootState) => state.song.activeSong);
 
   return (
     <Box height="100px" width="100vw" bg="gray.900" padding="10px">
       <Flex align="center">
         {activeSong ? (
           <Box padding="20px" color="white" width="30%">
-            <Text fontSize="large">Song Name</Text>
+            <Text fontSize="large">{activeSong.name}</Text>
             <Text fontSize="sm">artist name</Text>
           </Box>
         ) : null}

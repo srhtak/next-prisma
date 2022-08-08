@@ -7,6 +7,7 @@ import { useMe } from "lib/hooks";
 
 const Home = ({ artists }) => {
   const { user } = useMe();
+
   return (
     <div>
       <Head>

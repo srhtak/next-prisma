@@ -3,17 +3,17 @@ import { Table, Thead, Td, Tr, Tbody, Th, IconButton } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { formatDate, formatTime } from "lib/formatters";
-import { useStoreActions } from "easy-peasy";
+import { useDispatch } from "react-redux";
+import { changeActiveSong, changeActiveSongs } from "store/songReducer";
 
 const SongsTable = ({ songs }) => {
-  const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
-  const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
+  // const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
+  // const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
+  const dispatch = useDispatch();
 
   const handlePlay = (activeSong?) => {
-    const set = setActiveSong(activeSong || songs[0]);
-    const play = playSongs(songs);
-    console.log(set);
-    console.log(play);
+    dispatch(changeActiveSong(activeSong || songs[0]));
+    dispatch(changeActiveSongs(songs));
   };
 
   return (
