@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface SongState {
   songs: string[];
-  activeSong?: string;
+  activeSong?: object;
 }
 
 const initialState: SongState = {
@@ -18,7 +18,7 @@ export const songSlice = createSlice({
       state.songs = action.payload;
     },
     changeActiveSong: (state, action: PayloadAction<object>) => {
-      state.activeSong = { ...action.payload };
+      state.activeSong = action.payload;
     },
   },
 });
