@@ -7,8 +7,6 @@ import { useDispatch } from "react-redux";
 import { changeActiveSong, changeActiveSongs } from "store/songReducer";
 
 const SongsTable = ({ songs }) => {
-  // const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
-  // const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
   const dispatch = useDispatch();
 
   const handlePlay = (activeSong?) => {
