@@ -21,16 +21,22 @@ import {
   MdOutlineRepeat,
 } from "react-icons/md";
 import { formatTime } from "lib/formatters";
+import { useDispatch } from "react-redux";
+import { changeActiveSong } from "store/songReducer";
 
 const Player = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState(true);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(
+    songs.findIndex((song) => song.id === activeSong.id)
+  );
   const [seek, setSeek] = useState(0.0);
   const [isSeeking, setIsSeeking] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
   const soundRef = useRef(null);
+  const dispatch = useDispatch();
+  const repeatRef = useRef(repeat);
 
   useEffect(() => {
     let timerId;
@@ -45,6 +51,14 @@ const Player = ({ songs, activeSong }) => {
     }
     cancelAnimationFrame(timerId);
   }, [playing, isSeeking]);
+
+  useEffect(() => {
+    dispatch(changeActiveSong(songs[index]));
+  }, [index, songs, dispatch]);
+
+  useEffect(() => {
+    repeatRef.current = repeat;
+  }, [repeat]);
 
   const setPlayState = (value) => {
     setPlaying(value);
@@ -77,7 +91,7 @@ const Player = ({ songs, activeSong }) => {
   };
 
   const onEnd = () => {
-    if (repeat) {
+    if (repeatRef.current) {
       setSeek(0);
       soundRef.current.seek(0);
     } else {
@@ -176,7 +190,7 @@ const Player = ({ songs, activeSong }) => {
               aria-label={["min", "max"]}
               step={0.1}
               min={0}
-              max={duration ? duration.toFixed(2) : 0}
+              max={duration ? (duration.toFixed(2) as unknown as number) : 0}
               id="player-range"
               onChange={onSeek}
               value={[seek]}

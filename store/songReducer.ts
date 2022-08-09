@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface Artist {
+  name: string;
+}
+
 export interface Song {
   name: string;
+  artist: Artist;
 }
 
 export interface SongState {
