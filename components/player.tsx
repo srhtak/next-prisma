@@ -20,11 +20,10 @@ import {
   MdOutlinePauseCircleFilled,
   MdOutlineRepeat,
 } from "react-icons/md";
-import { useStoreActions } from "easy-peasy";
 import { formatTime } from "lib/formatters";
 
 const Player = ({ songs, activeSong }) => {
-  const [Playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(true);
   const [index, setIndex] = useState(0);
   const [seek, setSeek] = useState(0.0);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -32,6 +31,20 @@ const Player = ({ songs, activeSong }) => {
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
   const soundRef = useRef(null);
+
+  useEffect(() => {
+    let timerId;
+
+    if (playing && !isSeeking) {
+      const f = () => {
+        setSeek(soundRef.current.seek());
+        timerId = requestAnimationFrame(f);
+      };
+      timerId = requestAnimationFrame(f);
+      return () => cancelAnimationFrame(timerId);
+    }
+    cancelAnimationFrame(timerId);
+  }, [playing, isSeeking]);
 
   const setPlayState = (value) => {
     setPlaying(value);
@@ -87,7 +100,7 @@ const Player = ({ songs, activeSong }) => {
       <Box>
         <ReactHowler
           ref={soundRef}
-          playing={Playing}
+          playing={playing}
           src={activeSong?.url}
           onLoad={onLoad}
           onEnd={onEnd}
@@ -112,7 +125,7 @@ const Player = ({ songs, activeSong }) => {
             icon={<MdSkipPrevious />}
             onClick={prevSong}
           />
-          {Playing ? (
+          {playing ? (
             <IconButton
               outline="none"
               variant="link"
@@ -156,7 +169,7 @@ const Player = ({ songs, activeSong }) => {
       <Box color="gray.600">
         <Flex justify="center" align="center">
           <Box width="10%">
-            <Text fontSize="xs" />
+            <Text fontSize="xs">{formatTime(seek)}</Text>
           </Box>
           <Box width="80%">
             <RangeSlider
